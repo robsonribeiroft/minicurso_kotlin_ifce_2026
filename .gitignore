@@ -1,0 +1,26 @@
+# ── Privado / local (PRD D31) ───────────────────────────────
+# CV, PRD e foto original
+docs/
+# caminhos da máquina local
+.mcp.json
+.claude/
+# roteiro do ministrante
+GUIA_DO_APRESENTADOR.md
+deck/Minicurso_Kotlin_notas.pdf
+deck/*.deckcraft
+deck/*.pptx
+deck/build/
+deck/preview/
+archive/
+
+# Pacotes de marca da JetBrains (usados no build, não redistribuídos)
+Kotlin Ecosystem Logos/
+kotlin_mascot_2/
+
+# Gabaritos: publicados só na branch `gabaritos` (PRD D32)
+solucoes/
+
+# Sistema
+__pycache__/
+*.pyc
+.DS_Store
