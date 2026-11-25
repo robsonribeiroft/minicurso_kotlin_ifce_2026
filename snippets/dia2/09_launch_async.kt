@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 41
+// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 42
 // 09_launch_async.kt · launch, async e runBlocking
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

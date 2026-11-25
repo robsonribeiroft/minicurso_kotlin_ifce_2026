@@ -4,20 +4,20 @@ Cada arquivo é autocontido: copie **o arquivo inteiro**, cole em [play.kotlinla
 
 | Arquivo | Tema | Slide |
 |---|---|---|
-| [`01_classes.kt`](01_classes.kt) | Classes, construtores e propriedades | 32 |
-| [`02_data_class.kt`](02_data_class.kt) | data class | 33 |
-| [`03_heranca_interfaces.kt`](03_heranca_interfaces.kt) | Herança e interfaces | 34 |
-| [`04_sealed_when.kt`](04_sealed_when.kt) | sealed: hierarquias fechadas e when exaustivo | 35 |
-| [`05_faca_evite_when.kt`](05_faca_evite_when.kt) | Faça / Evite: when com sealed | 36 |
-| [`06_enum_object.kt`](06_enum_object.kt) | enum, object e companion object | 37 |
-| [`07_corrotinas_leves.kt`](07_corrotinas_leves.kt) | Por que corrotinas? | 39 |
-| [`08_suspend.kt`](08_suspend.kt) | Funções suspend | 40 |
-| [`09_launch_async.kt`](09_launch_async.kt) | launch, async e runBlocking | 41 |
-| [`10_concorrencia_estruturada.kt`](10_concorrencia_estruturada.kt) | Concorrência estruturada | 42 |
-| [`11_faca_evite_escopo.kt`](11_faca_evite_escopo.kt) | Faça / Evite: escopo das corrotinas | 43 |
-| [`12_flow.kt`](12_flow.kt) | Flow: fluxos assíncronos de dados | 44 |
-| [`13_interop_java.kt`](13_interop_java.kt) | 100% interoperável com Java | 47 |
-| [`14_bonus_compose.kt`](14_bonus_compose.kt) | Compose Multiplatform: demo no navegador (bônus · alvo Compose/Wasm) | 49 |
+| [`01_classes.kt`](01_classes.kt) | Classes, construtores e propriedades | 33 |
+| [`02_data_class.kt`](02_data_class.kt) | data class | 34 |
+| [`03_heranca_interfaces.kt`](03_heranca_interfaces.kt) | Herança e interfaces | 35 |
+| [`04_sealed_when.kt`](04_sealed_when.kt) | sealed: hierarquias fechadas e when exaustivo | 36 |
+| [`05_faca_evite_when.kt`](05_faca_evite_when.kt) | Faça / Evite: when com sealed | 37 |
+| [`06_enum_object.kt`](06_enum_object.kt) | enum, object e companion object | 38 |
+| [`07_corrotinas_leves.kt`](07_corrotinas_leves.kt) | Por que corrotinas? | 40 |
+| [`08_suspend.kt`](08_suspend.kt) | Funções suspend | 41 |
+| [`09_launch_async.kt`](09_launch_async.kt) | launch, async e runBlocking | 42 |
+| [`10_concorrencia_estruturada.kt`](10_concorrencia_estruturada.kt) | Concorrência estruturada | 43 |
+| [`11_faca_evite_escopo.kt`](11_faca_evite_escopo.kt) | Faça / Evite: escopo das corrotinas | 44 |
+| [`12_flow.kt`](12_flow.kt) | Flow: fluxos assíncronos de dados | 45 |
+| [`13_interop_java.kt`](13_interop_java.kt) | 100% interoperável com Java | 48 |
+| [`14_bonus_compose.kt`](14_bonus_compose.kt) | Compose Multiplatform: demo no navegador (bônus · alvo Compose/Wasm) | 50 |
 
 ## Desafios do Dia 2
 

@@ -15,7 +15,7 @@ Material do minicurso de Kotlin para a turma de **Engenharia de Computação do 
 | | |
 |---|---|
 | 📅 Formato | 4 horas, em 2 encontros de 2 horas |
-| 🧑‍🏫 Ministrante | Robson Freitas Ribeiro · Senior Android Engineer na CI&T · [GitHub](https://github.com/robsonribeiroft) · [LinkedIn](https://www.linkedin.com/in/robsonribeiroft/) |
+| 🧑‍🏫 Ministrante | Robson Freitas Ribeiro · Senior Software Engineer na CI&T · [GitHub](https://github.com/robsonribeiroft) · [LinkedIn](https://www.linkedin.com/in/robsonribeiroft/) |
 | 📄 Ementa | [EMENTA.md](EMENTA.md) |
 | 🖥️ Slides (PDF) | [Dia 1](deck/Minicurso_Kotlin_Dia1.pdf) · [Dia 2](deck/Minicurso_Kotlin_Dia2.pdf) · [Completo](deck/Minicurso_Kotlin.pdf) |
 
@@ -29,7 +29,7 @@ Material do minicurso de Kotlin para a turma de **Engenharia de Computação do 
 > Cada bloco de código dos slides mostra, no canto, o nome do arquivo correspondente.
 
 <p align="center">
-  <img src="assets/readme/dia1.png" alt="Dia 1, Fundamentos da linguagem. Agenda: 00:00 abertura e tour do Playground; 00:10 história e filosofia; 00:20 fundamentos; 01:05 funções; 01:35 hora do desafio; 02:00 fim do Dia 1." width="100%">
+  <img src="assets/readme/dia1.png" alt="Dia 1, Fundamentos da linguagem. Agenda: 00:00 abertura, tour do Playground e caso real; 00:12 história e filosofia; 00:20 fundamentos; 01:05 funções; 01:35 hora do desafio; 02:00 fim do Dia 1." width="100%">
 </p>
 
 ## Dia 1 · Fundamentos da linguagem

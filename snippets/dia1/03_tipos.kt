@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 13
+// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 14
 // 03_tipos.kt · Tipos básicos e a hierarquia
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

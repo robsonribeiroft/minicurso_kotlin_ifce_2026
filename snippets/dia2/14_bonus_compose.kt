@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 49
+// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 50
 // 14_bonus_compose.kt · Compose Multiplatform: demo no navegador
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

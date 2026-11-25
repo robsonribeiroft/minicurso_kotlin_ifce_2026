@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 42
+// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 43
 // 10_concorrencia_estruturada.kt · Concorrência estruturada
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

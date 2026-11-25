@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 20
+// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 21
 // 10_faca_evite_colecoes.kt · Faça / Evite: expondo coleções
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 16
+// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 17
 // 06_faca_evite_nulos.kt · Faça / Evite: lidando com nulos
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

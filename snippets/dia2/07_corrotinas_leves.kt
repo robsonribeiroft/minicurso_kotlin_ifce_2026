@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 39
+// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 40
 // 07_corrotinas_leves.kt · Por que corrotinas?
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

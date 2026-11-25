@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 11
+// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 12
 // 01_ola_kotlin.kt · Olá, Kotlin!
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

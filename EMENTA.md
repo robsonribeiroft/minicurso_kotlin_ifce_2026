@@ -4,7 +4,7 @@
 |---|---|
 | **Público** | Estudantes de Engenharia de Computação · IFCE, Campus Fortaleza |
 | **Carga horária** | **4 h**, em **2 encontros de 2 h** (com intervalo de 10 min em cada) |
-| **Ministrante** | Robson Freitas Ribeiro · Senior Android Engineer na CI&T |
+| **Ministrante** | Robson Freitas Ribeiro · Senior Software Engineer na CI&T |
 | **Pré-requisitos** | Lógica de programação e noções de orientação a objetos |
 | **Ferramenta** | Somente o navegador: [Kotlin Playground](https://play.kotlinlang.org/) (Kotlin **2.4.21**, alvo **JVM**) |
 | **Material** | Slides, snippets executáveis e desafios em [`github.com/robsonribeiroft/minicurso_kotlin_ifce_2026`](https://github.com/robsonribeiroft/minicurso_kotlin_ifce_2026) |
@@ -31,8 +31,8 @@ Ao final, o estudante será capaz de:
 
 | Horário | Bloco | Tópicos |
 |---|---|---|
-| 00:00 | Abertura · 10 min | apresentação do ministrante, ementa, tour do Kotlin Playground |
-| 00:10 | 01 · História e filosofia · 10 min | JetBrains (2010), Kotlin 1.0 (2016), Google I/O 2017, Kotlin-first, KMP estável, Kotlin 2.0/K2, Kotlin 2.4 (2026); onde a linguagem é usada |
+| 00:00 | Abertura · 12 min | apresentação do ministrante, ementa, tour do Kotlin Playground e um caso real: jogo em rede feito em Kotlin com Compose Desktop |
+| 00:12 | 01 · História e filosofia · 8 min | JetBrains (2010), Kotlin 1.0 (2016), Google I/O 2017, Kotlin-first, KMP estável, Kotlin 2.0/K2, Kotlin 2.4 (2026); onde a linguagem é usada |
 | 00:20 | 02 · Fundamentos · 35 min | `fun main`, `val`/`var`, tipos e hierarquia (`Any`, `Unit`, `Nothing`), strings e templates, null safety, `if`/`when` (com guard conditions), laços e ranges, coleções, operações funcionais e sequências · Faça/Evite: `!!` e coleções mutáveis expostas |
 | 00:55 | Intervalo · 10 min | |
 | 01:05 | 03 · Funções · 30 min | parâmetros padrão e nomeados, `vararg`, lambdas e funções de ordem superior, trailing lambdas, funções de escopo (`let`, `run`, `with`, `apply`, `also`), extension functions e properties |

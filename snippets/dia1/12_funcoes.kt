@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 24
+// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 25
 // 12_funcoes.kt · Declarando funções
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

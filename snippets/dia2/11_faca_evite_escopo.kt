@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 43
+// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 44
 // 11_faca_evite_escopo.kt · Faça / Evite: escopo das corrotinas
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

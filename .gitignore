@@ -24,3 +24,6 @@ solucoes/
 __pycache__/
 *.pyc
 .DS_Store
+
+# Atalho local para abrir o deck no app
+deck/abrir_no_deckcraft.command

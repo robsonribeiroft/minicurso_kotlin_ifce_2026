@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 19
+// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 20
 // 09_colecoes.kt · Coleções: somente leitura × mutáveis
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

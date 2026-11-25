@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 26
+// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 27
 // 14_funcoes_de_escopo.kt · Funções de escopo: let, run, with, apply, also
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 1 · DESAFIO (slide 28)
+// Minicurso de Kotlin · IFCE 2026 · Dia 1 · DESAFIO (slide 29)
 // desafio3_boletim.kt
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM), clique em Run e deixe tudo ✅.

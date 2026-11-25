@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 21
+// Minicurso de Kotlin · IFCE 2026 · Dia 1 · slide 22
 // 11_operacoes_funcionais.kt · Operações funcionais e sequências
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

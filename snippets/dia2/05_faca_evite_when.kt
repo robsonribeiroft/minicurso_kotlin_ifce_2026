@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 36
+// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 37
 // 05_faca_evite_when.kt · Faça / Evite: when com sealed
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

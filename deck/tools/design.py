@@ -357,6 +357,25 @@ class Slide:
                      C("shape.effects", shadow={"color": INK, "blur": 0, "dist": SHADOW, "dir": 45}))
         return self
 
+    def video(self, rel, box, size_px, poster_ms=0, autoplay=True, loop=True):
+        """Vídeo local (não versionado). Sem o arquivo, desenha um placeholder em vez de falhar."""
+        path = os.path.join(ROOT, rel)
+        iw, ih = size_px
+        x, y, w, h = box
+        s = min(w / iw, h / ih)
+        pw, ph = iw * s, ih * s
+        rect = [round(x + (w - pw) / 2, 1), round(y + (h - ph) / 2, 1), round(pw, 1), round(ph, 1)]
+        if not os.path.exists(path):
+            self.rect(rect, fill=SURFACE, text=f"vídeo local não incluído: {os.path.basename(rel)}")
+            self.add(C("format.size", size=12), C("format.color", color=MUTED), C("format.font", family=MONO))
+            return self
+        self.add(C("insert.video", path=path, rect=rect),
+                 C("media.options", autoplay=autoplay, loop=loop),
+                 C("media.posterFrame", ms=poster_ms),
+                 C("shape.line", color=INK, width=BORDER_W),
+                 C("shape.effects", shadow={"color": INK, "blur": 0, "dist": SHADOW, "dir": 45}))
+        return self
+
     def chip(self, x, y, text, fill=WHITE, color=INK, size=10, h=22, gradient=None, shadow=0,
              width=BORDER_W, mono=False, w=None, line=INK):
         cw = w or (len(text) * size * (0.62 if mono else 0.6) + 26)

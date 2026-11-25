@@ -1,5 +1,5 @@
 // ══════════════════════════════════════════════════════════════
-// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 35
+// Minicurso de Kotlin · IFCE 2026 · Dia 2 · slide 36
 // 04_sealed_when.kt · sealed: hierarquias fechadas e when exaustivo
 // Como usar: cole TODO este arquivo em https://play.kotlinlang.org
 // (versão 2.4.21, alvo JVM) e clique em Run.

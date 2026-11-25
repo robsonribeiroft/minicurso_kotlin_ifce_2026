@@ -173,21 +173,21 @@ DICA: Deixe play.kotlinlang.org aberto numa aba e o repositório em outra.
     x = 48
     for t in ["Fundamentos", "Funções", "Classes", "Corrotinas", "Multiplatform"]:
         x += s.chip(x, 404, t, fill=SURFACE, size=10.5, h=26) + 10
-    s.text([48, 470, 460, 20], "Robson Freitas Ribeiro · Senior Android Engineer @ CI&T", size=11, color=BODY2)
+    s.text([48, 470, 460, 20], "Robson Freitas Ribeiro · Senior Software Engineer @ CI&T", size=11, color=BODY2)
     s.rect([566, 70, 346, 380], gradient=GRAD, shadow=8, radius=22, angle=45)
     s.rect([592, 96, 294, 328], fill=WHITE, shadow=0, radius=16)
     s.kodee("waving", (606, 112, 266, 296))
 
     # ------------------------------------------------------------ MINISTRANTE (D4/D14)
     s = d.content("Boas-vindas", "Quem está falando com vocês", min=3, notes="""
-FALE: Apresente-se em até 2 minutos: Senior Android Engineer na CI&T desde 2021, mais de 8 anos com Kotlin e Jetpack Compose.
+FALE: Apresente-se em até 2 minutos: Senior Software Engineer na CI&T desde 2021, mais de 8 anos com Kotlin e Jetpack Compose.
 FALE: Cite um projeto por card: GloboPOP (feed de vídeos verticais da Globo, você definiu a arquitetura); BT (app nativo em Compose portado do iOS com ajuda de uma ferramenta de IA que converte Swift em Kotlin, e uma PoC em Kotlin Multiplatform); Ambev (arquitetura assíncrona com corrotinas, app usado em 18+ países); Mediline (agentes de IA que documentam e entregam microsserviços Java/Spring).
 FALE: Gere identificação: "Também sou aluno de Engenharia de Computação aqui no IFCE." Conte como a pesquisa em sistemas embarcados no curso te levou ao Android.
 FALE: Conexão com o minicurso: Kotlin, corrotinas e KMP, que vocês vão ver, são o seu dia a dia.
 """)
     s.picture(BUILT["profile"], (X0, Y0 + 4, 196, 196), border=True)
     s.text([X0 + 226, Y0 + 2, 520, 44], "Robson Freitas Ribeiro", size=32, bold=True)
-    s.text([X0 + 226, Y0 + 50, 520, 26], "Senior Android Engineer · CI&T", size=18, bold=True, color=PURPLE_DEEP)
+    s.text([X0 + 226, Y0 + 50, 520, 26], "Senior Software Engineer @ CI&T", size=18, bold=True, color=PURPLE_DEEP)
     s.text([X0 + 226, Y0 + 84, 500, 48],
            "8+ anos com **Kotlin** e **Jetpack Compose**, hoje também com agentes de IA.\nAluno de **Engenharia de Computação no IFCE**, como vocês.",
            size=13.5, color=BODY2, line=1.2)
@@ -229,8 +229,8 @@ FALE: Todo código dos slides está no repositório, um arquivo por slide, com o
 
     # ================================================================ DIA 1
     d.day_divider(1, "Fundamentos da linguagem", [
-        ("00:00", "Abertura e tour do Playground", "10'", None),
-        ("00:10", "01 · História e filosofia", "10'", None),
+        ("00:00", "Abertura, tour e caso real", "12'", None),
+        ("00:12", "01 · História e filosofia", "8'", None),
         ("00:20", "02 · Fundamentos", "35'", None),
         ("00:55", "Intervalo", "10'", "surface"),
         ("01:05", "03 · Funções", "30'", None),
@@ -278,13 +278,29 @@ DEMO: Cole snippets/dia1/01_ola_kotlin.kt e rode.
     s.picture(BUILT["qr_repo"], (X0 + 764, Y0 + 210, 88, 88))
     s.text([X0 + 756, Y0 + 304, 104, 40], "repositório\ndo curso", size=10, color=MUTED, align="center")
 
+    s = d.content("Dia 1 · Abertura", "Caso real: jogo em rede com Compose Desktop", min=2.5, notes="""
+FALE: "Antes de começar, quero mostrar até onde vocês podem chegar com Kotlin se continuarem estudando." Este é um projeto que você fez para a disciplina de PPD aqui do IFCE: uma aplicação desktop escrita em Kotlin com Compose.
+DEMO: O vídeo (78 s, sem áudio) começa sozinho e fica em loop. Narre por cima: um servidor (127.0.0.1:12345) e dois jogadores conectados, chat em tempo real e um jogo de tabuleiro 5×5 com as jogadas Place, Remove, Move e Capture, até a tela de "You Win! / You Lose!".
+FALE: Em 1 minuto, conte como a comunicação entre servidor e clientes foi feita (sockets, threads ou corrotinas) e o que foi mais difícil. Faça a ponte: tudo isso se apoia no que vamos ver nestes dois dias: funções, classes, sealed, corrotinas e, no fim do Dia 2, Compose Multiplatform.
+PERGUNTE: "Que disciplina de vocês daria um bom projeto em Kotlin?"
+""")
+    s.video("docs/ppd_compose.mov", (X0, Y0 + 6, 560, H - 6), size_px=(2928, 1732), poster_ms=43_000)
+    s.bullets([X0 + 584, Y0 + 6, W - 584, H - 6], [
+        "Projeto da disciplina de **PPD** do IFCE",
+        "App **desktop** em **Compose**",
+        "**Servidor** + 2 jogadores em rede",
+        "**Chat** e jogo em tempo real",
+        "Tudo começa no que veremos **nestes 2 dias**",
+    ], size=14, title="Onde vocês podem chegar")
+    s.kodee("electrified", (X0 + W - 76, Y0 + H - 78, 60, 60), emoji=True)
+
     # ================================================================ 01 HISTÓRIA
     d.section("01", "História e filosofia", "Por que uma empresa de ferramentas criou uma linguagem.",
               ["JetBrains, 2010", "Kotlin 1.0", "Google I/O 2017", "Kotlin 2.4"], "sitting", notes="""
-FALE: Dez minutos de contexto: a história explica as decisões de design que vamos usar o tempo todo.
+FALE: Oito minutos de contexto: a história explica as decisões de design que vamos usar o tempo todo.
 """)
 
-    s = d.content("01 · História", "Por que a JetBrains criou o Kotlin?", min=3, notes="""
+    s = d.content("01 · História", "Por que a JetBrains criou o Kotlin?", min=2.5, notes="""
 FALE: Em 2010 a JetBrains mantinha milhões de linhas de Java (IntelliJ IDEA). O Java 6 estava parado: sem lambdas, muito código repetitivo e NullPointerException por toda parte.
 FALE: Scala era poderosa, mas compilava devagar. A meta era uma linguagem estática, concisa, segura, 100% interoperável com Java e com ótimo ferramental. Andrey Breslav liderou o design.
 FALE: O nome vem da ilha de Kotlin, perto de São Petersburgo — assim como Java também é uma ilha.
@@ -304,7 +320,7 @@ PERGUNTE: "Quem já tomou um NullPointerException?" Tony Hoare chamou o null de 
            size=14)
     s.kodee("naughty", (X0 + 570, Y0 + 222, 190, 140))
 
-    s = d.content("01 · História", "Linha do tempo: 2010 → 2026", min=3.5, notes="""
+    s = d.content("01 · História", "Linha do tempo: 2010 → 2026", min=3, notes="""
 FALE: 2010: projeto nasce na JetBrains. 2016: Kotlin 1.0, com compatibilidade retroativa. 2017: no Google I/O, suporte oficial no Android. 2019: Android "Kotlin-first".
 FALE: 2023: Kotlin Multiplatform estável. 2024: Kotlin 2.0 com o compilador K2, e o Google passa a apoiar o KMP. 2025: Compose Multiplatform para iOS estável.
 FALE: 2026: Kotlin 2.4 (junho) com context parameters e explicit backing fields estáveis; o Playground que vamos usar já está no 2.4.21.
@@ -318,7 +334,7 @@ FALE: 2026: Kotlin 2.4 (junho) com context parameters e explicit backing fields 
                  ("2025", "**Compose MP para iOS** estável."),
                  ("2026", "**Kotlin 2.4** e Playground 2.4.21.")], size=13, card_h=150)
 
-    s = d.content("01 · História", "Kotlin hoje: onde a linguagem está", min=3, notes="""
+    s = d.content("01 · História", "Kotlin hoje: onde a linguagem está", min=2, notes="""
 FALE: Android: linguagem oficial e Kotlin-first. Backend: Spring Boot e Ktor. Multiplatform: Netflix, McDonald's, Cash App, Philips, Forbes e o Google Workspace compartilham código Kotlin entre plataformas.
 FALE: Dados e IA: Kotlin Notebook, DataFrame e o Koog, framework da JetBrains para agentes de IA.
 PERGUNTE: "Em qual dessas áreas vocês se veem trabalhando?"
@@ -711,7 +727,7 @@ FALE: Estável desde novembro de 2023; o Google recomenda para compartilhar lóg
 
     s = d.content("06 · Além do Playground", "Compose Multiplatform: demo no navegador", min=4, notes="""
 DEMO (validar antes da aula!): No Playground, mude o alvo para "Compose (Wasm)" e cole 14_bonus_compose.kt. Se a função de entrada não existir na versão do Playground, use o template de Compose dele e cole só a função Contador().
-FALE: A mesma função @Composable roda em Android, iOS (estável desde 2025), desktop e web. UI = f(estado): quando "cliques" muda, o Compose redesenha só o necessário.
+FALE: Lembram do jogo da disciplina de PPD que vimos no Dia 1? É esta mesma tecnologia. A mesma função @Composable roda em Android, iOS (estável desde 2025), desktop e web. UI = f(estado): quando "cliques" muda, o Compose redesenha só o necessário.
 FALE: "var cliques by remember { mutableStateOf(0) }" usa delegação de propriedade, um recurso que está no material extra.
 """)
     two_col(s, D2 + "14_bonus_compose.kt", ["UI declarativa: **UI = f(estado)**", "Android, **iOS**, desktop e **web**",

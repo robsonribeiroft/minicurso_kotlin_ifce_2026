@@ -76,7 +76,7 @@ def build(mcp, deck):
     imagens = [
         ("banner.png", banner_capa),
         ("dia1.png", banner_dia(1, "Fundamentos da linguagem",
-                                [("00:00", "Abertura e tour do Playground"), ("00:10", "01 · História e filosofia"),
+                                [("00:00", "Abertura, tour e caso real"), ("00:12", "01 · História e filosofia"),
                                  ("00:20", "02 · Fundamentos"), ("01:05", "03 · Funções"),
                                  ("01:35", "Hora do desafio"), ("02:00", "Fim do Dia 1")], "greeting")),
         ("dia2.png", banner_dia(2, "Modelagem, concorrência e ecossistema",
