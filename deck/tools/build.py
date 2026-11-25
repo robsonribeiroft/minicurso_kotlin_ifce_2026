@@ -30,6 +30,22 @@ NAME = "Minicurso_Kotlin"
 BAR = "// ══════════════════════════════════════════════════════════════"
 
 
+def proteger(path: str, ligar: bool):
+    """Liga/desliga o flag de imutabilidade do macOS (uchg) e o modo somente leitura."""
+    if not os.path.exists(path):
+        return
+    import stat
+    flags = os.stat(path).st_flags if hasattr(os, "chflags") else None
+    if ligar:                       # chmod antes: arquivo imutável não aceita chmod
+        os.chmod(path, 0o444)
+        if flags is not None:
+            os.chflags(path, flags | stat.UF_IMMUTABLE)
+    else:
+        if flags is not None:
+            os.chflags(path, flags & ~stat.UF_IMMUTABLE)
+        os.chmod(path, 0o644)
+
+
 def prepare_assets():
     """Reduz as ilustrações do Kodee (3334 px) para 900 px."""
     os.makedirs(ASSETS_BUILD, exist_ok=True)
@@ -151,16 +167,120 @@ def write_guide(deck):
         print(f"  Dia {dia}: {total:g} min planejados")
 
 
-# ------------------------------------------------------------------ main
+# ------------------------------------------------------------------ versão editável (v2)
+VERSAO = "v2"
+DECK = os.path.join(DECK_DIR, f"{NAME}_{VERSAO}")            # deck/Minicurso_Kotlin_v2.deckcraft
+MANIFESTO = os.path.join(DECK_DIR, "build", f"manifesto_{VERSAO}.json")
+THEME = [
+    C("design.colors", colors={
+        "dk1": "#121216", "lt1": "#FFFFFF", "dk2": "#3D3D4A", "lt2": "#F2F2F7",
+        "accent1": "#7F52FF", "accent2": "#C711E1", "accent3": "#F88909",
+        "accent4": "#2563EB", "accent5": "#059669", "accent6": "#E11D48",
+        "hlink": "#5B32D6", "folHlink": "#C711E1"}),
+    C("design.fonts", major="Inter", minor="Inter"),
+    C("file.properties", title="Kotlin: da história ao Multiplatform",
+      subject="Minicurso de Kotlin (4 h · 2 dias) — Engenharia de Computação, IFCE Fortaleza",
+      author="Robson Freitas Ribeiro", keywords="Kotlin, Playground, Corrotinas, KMP", category="Minicurso"),
+]
+
+
+def sha256(path: str) -> str | None:
+    import hashlib
+    if not os.path.exists(path):
+        return None
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for bloco in iter(lambda: f.read(1 << 20), b""):
+            h.update(bloco)
+    return h.hexdigest()
+
+
+def ler_manifesto() -> dict:
+    import json
+    if os.path.exists(MANIFESTO):
+        return json.load(open(MANIFESTO, encoding="utf-8"))
+    return {"sha256": None, "slides": {}}
+
+
+def gravar_manifesto(m: dict):
+    import json
+    os.makedirs(os.path.dirname(MANIFESTO), exist_ok=True)
+    m["sha256"] = sha256(DECK + ".deckcraft")
+    m["atualizado"] = time.strftime("%Y-%m-%d %H:%M:%S")
+    json.dump(m, open(MANIFESTO, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+
+
+def chaves(slides: list[Slide]) -> list[str]:
+    """Chave estável de cada slide do content.py (dia + título), usada no manifesto."""
+    vistos, out = {}, []
+    for s in slides:
+        base = f"d{s.day}:" + re.sub(r"[^a-z0-9]+", "-", s.title.lower()).strip("-")
+        vistos[base] = vistos.get(base, 0) + 1
+        out.append(base if vistos[base] == 1 else f"{base}#{vistos[base]}")
+    return out
+
+
+def app_aberto() -> bool:
+    """O app DeckCraft (GUI) aberto pode gravar uma cópia do AutoRecover por cima do deck."""
+    r = subprocess.run(["pgrep", "-x", "DeckCraft"], capture_output=True)
+    return r.returncode == 0
+
+
+def cmds_do_slide(s: Slide, at: int | None = None) -> list[dict]:
+    cmds = chrome(s) + s.cmds
+    if at is not None:
+        cmds[0]["params"]["at"] = at
+    cmds.append(C("transition.set", kind="fade", duration=300))
+    if s.notes:
+        cmds.append(C("slide.notes", text=s.notes))
+    return cmds
+
+
+def id_criado(resultado: str) -> int | None:
+    import json
+    for r in json.loads(resultado):
+        if r.get("command") == "slide.new" and isinstance(r.get("result"), dict):
+            return r["result"].get("id")
+    return None
+
+
+def exportar(mcp, slides: list[Slide], ids_por_dia: dict[int, list[int]] | None):
+    """Exporta .pptx e PDFs a partir do documento ABERTO (inclui as edições humanas)."""
+    base = os.path.join(DECK_DIR, NAME)
+    mcp.call("export", {"path": DECK + ".pptx", "format": "pptx"})
+    mcp.call("run_command", {"command": "file.export", "params": {
+        "path": base + ".pdf", "format": "pdf", "layout": "slides", "textLayer": True}})
+    if ids_por_dia:
+        import json
+        doc = json.loads(mcp.call("inspect_document", {}))
+        pos = {sl["id"]: sl["index"] for sl in doc["slides"]}
+        for dia, ids in ids_por_dia.items():
+            idx = sorted(pos[i] for i in ids if i in pos)
+            mcp.call("run_command", {"command": "file.export", "params": {
+                "path": f"{base}_Dia{dia}.pdf", "format": "pdf", "layout": "slides",
+                "slides": idx, "textLayer": True}})
+    mcp.call("export", {"path": DECK + "_notas.pdf", "format": "pdf", "layout": "notes", "paper": "a4"})
+
+
 def main():
-    ap = argparse.ArgumentParser()
+    ap = argparse.ArgumentParser(description="Build do deck v2 (editável por humano, agente e script).")
     ap.add_argument("--cli", default=os.environ.get(
         "DECKCRAFT_CLI", os.path.expanduser("~/.local/opt/deckcraft-cli-0.18.1/deckcraft-cli")))
-    ap.add_argument("--only", help="índices (0-based) para construir apenas alguns slides")
+    ap.add_argument("--slides", help="atualiza SÓ estes slides (números do content.py, ex.: 6,12) "
+                                     "no deck existente, preservando o resto e as edições humanas")
+    ap.add_argument("--exportar", action="store_true",
+                    help="só exporta PDFs/.pptx a partir do deck existente (com as edições humanas)")
+    ap.add_argument("--forcar", action="store_true",
+                    help="build completo mesmo que o deck tenha sido editado (as edições são perdidas)")
+    ap.add_argument("--ignorar-app", action="store_true", help="roda mesmo com o app DeckCraft aberto")
     ap.add_argument("--preview", action="store_true")
     ap.add_argument("--sem-readme", action="store_true", help="não gera as imagens do README")
     ap.add_argument("--scale", type=float, default=1.0)
     args = ap.parse_args()
+
+    if app_aberto() and not args.ignorar_app:
+        sys.exit("✋ O app DeckCraft está aberto. Feche-o (⌘Q) antes do build: o AutoRecover do app "
+                 "pode gravar uma cópia antiga por cima do deck. (Use --ignorar-app por sua conta.)")
 
     prepare_assets()
     from content import build_deck  # noqa: E402
@@ -169,9 +289,23 @@ def main():
     for i, s in enumerate(slides):
         s.number = i + 1
     usados = sync_snippets(slides)
-    # recarrega o conteúdo: os cabeçalhos mudaram, mas os trechos exibidos não incluem o cabeçalho
-    pick = set(int(x) for x in args.only.split(",")) if args.only else None
-    chosen = [s for i, s in enumerate(slides) if pick is None or i in pick]
+    keys = chaves(slides)
+    man = ler_manifesto()
+    arquivo = DECK + ".deckcraft"
+    for ext in (".deckcraft", ".pptx"):           # remove a trava antiga (uchg), se existir
+        proteger(DECK + ext, False)
+
+    editado = os.path.exists(arquivo) and man.get("sha256") not in (None, sha256(arquivo))
+    incremental = bool(args.slides) or args.exportar
+    # "edições externas" é persistente: depois de um --slides/--exportar o hash do manifesto
+    # passa a ser o do deck editado, mas as edições humanas continuam lá e não podem ser perdidas.
+    externas = editado or man.get("edicoes_externas", False)
+    if not incremental and os.path.exists(arquivo) and (externas or not man.get("sha256")) and not args.forcar:
+        sys.exit(f"✋ {os.path.relpath(arquivo, ROOT)} foi editado depois do último build (no app ou por "
+                 "um agente).\n   Para não perder essas edições, use:\n"
+                 "     --slides N[,M]  atualiza só esses slides a partir do content.py\n"
+                 "     --exportar      gera PDFs/.pptx a partir do deck editado\n"
+                 "     --forcar        regenera tudo (descarta as edições)")
 
     out_preview = os.path.join(DECK_DIR, "preview")
     if args.preview:
@@ -180,55 +314,60 @@ def main():
 
     t0 = time.time()
     with DeckcraftMCP(args.cli, read_roots=[ROOT], write_roots=[DECK_DIR, os.path.join(ROOT, "assets")]) as mcp:
-        mcp.call("new_presentation", {"blank": True})
-        mcp.call("batch", {"commands": [
-            C("design.colors", colors={
-                "dk1": "#121216", "lt1": "#FFFFFF", "dk2": "#3D3D4A", "lt2": "#F2F2F7",
-                "accent1": "#7F52FF", "accent2": "#C711E1", "accent3": "#F88909",
-                "accent4": "#2563EB", "accent5": "#059669", "accent6": "#E11D48",
-                "hlink": "#5B32D6", "folHlink": "#C711E1"}),
-            C("design.fonts", major="Inter", minor="Inter"),
-            C("file.properties", title="Kotlin: da história ao Multiplatform",
-              subject="Minicurso de Kotlin (4 h · 2 dias) — Engenharia de Computação, IFCE Fortaleza",
-              author="Robson Freitas Ribeiro", keywords="Kotlin, Playground, Corrotinas, KMP", category="Minicurso"),
-        ]})
-        for s in chosen:
-            cmds = chrome(s) + s.cmds
-            cmds.append(C("transition.set", kind="fade", duration=300))
-            if s.notes:
-                cmds.append(C("slide.notes", text=s.notes))
-            try:
-                mcp.call("batch", {"commands": cmds})
-            except Exception as e:
-                print(f"[ERRO] slide {s.number} '{s.title}': {str(e)[:800]}", file=sys.stderr)
-                raise
-        print(f"  {len(chosen)} slides enviados via MCP")
-        mcp.call("run_command", {"command": "slide.go", "params": {"index": 0}})
+        if incremental:
+            import json
+            if not os.path.exists(arquivo):
+                sys.exit(f"Não existe {arquivo}: rode o build completo primeiro.")
+            mcp.call("open_presentation", {"path": arquivo})
+            alvo = [int(x) for x in args.slides.split(",")] if args.slides else []
+            for n in alvo:
+                s, k = slides[n - 1], keys[n - 1]
+                doc = json.loads(mcp.call("inspect_document", {}))
+                pos = {sl["id"]: sl["index"] for sl in doc["slides"]}
+                sid = man["slides"].get(k)
+                if sid in pos:                               # substitui no mesmo lugar
+                    at = pos[sid]
+                    mcp.call("batch", {"commands": [C("slide.delete", ids=[sid])]})
+                else:                                        # slide novo: depois do anterior do content
+                    ant = man["slides"].get(keys[n - 2]) if n > 1 else None
+                    at = pos[ant] + 1 if ant in pos else len(pos)
+                    if n > 1 and ant not in pos:
+                        print(f"  ! slide anterior a {n:02d} não está no deck; inserindo no fim")
+                novo = id_criado(mcp.call("batch", {"commands": cmds_do_slide(s, at=at)}))
+                man["slides"][k] = novo
+                print(f"  ↻ slide {n:02d} '{s.title}' atualizado (posição {at + 1} no deck)")
+            if alvo:
+                mcp.call("save_presentation", {"path": arquivo})
+            man["edicoes_externas"] = externas
+        else:
+            mcp.call("new_presentation", {"blank": True})
+            mcp.call("batch", {"commands": THEME})
+            man = {"versao": VERSAO, "slides": {}, "edicoes_externas": False}
+            for s, k in zip(slides, keys):
+                try:
+                    man["slides"][k] = id_criado(mcp.call("batch", {"commands": cmds_do_slide(s)}))
+                except Exception as e:
+                    print(f"[ERRO] slide {s.number} '{s.title}': {str(e)[:800]}", file=sys.stderr)
+                    raise
+            print(f"  {len(slides)} slides enviados via MCP")
+            mcp.call("run_command", {"command": "slide.go", "params": {"index": 0}})
+            mcp.call("save_presentation", {"path": arquivo})
 
-        if pick is None:
-            base = os.path.join(DECK_DIR, NAME)
-            mcp.call("save_presentation", {"path": base + ".deckcraft"})
-            mcp.call("export", {"path": base + ".pptx", "format": "pptx"})
-            mcp.call("run_command", {"command": "file.export", "params": {
-                "path": base + ".pdf", "format": "pdf", "layout": "slides", "textLayer": True}})
-            capa = [0, 1, 2]
-            for dia in (1, 2):
-                idx = sorted(set(capa + [i for i, s in enumerate(slides) if s.day == dia]))
-                mcp.call("run_command", {"command": "file.export", "params": {
-                    "path": f"{base}_Dia{dia}.pdf", "format": "pdf", "layout": "slides",
-                    "slides": idx, "textLayer": True}})
-            mcp.call("export", {"path": base + "_notas.pdf", "format": "pdf", "layout": "notes", "paper": "a4"})
+        capa = [keys[0], keys[1], keys[2]]
+        ids_por_dia = {d: [man["slides"][k] for k, s in zip(keys, slides)
+                           if (s.day == d or k in capa) and k in man["slides"]] for d in (1, 2)}
+        exportar(mcp, slides, ids_por_dia)
+        gravar_manifesto(man)
         if args.preview:
             mcp.call("export", {"path": os.path.join(out_preview, "slide.png"), "format": "png",
                                 "all": True, "scale": args.scale})
-        if pick is None and not args.sem_readme:
+        if not incremental and not args.sem_readme:
             import readme_assets
             readme_assets.build(mcp, deck)
-    print(f"Concluído em {time.time() - t0:.1f}s")
+    print(f"Concluído em {time.time() - t0:.1f}s → {os.path.relpath(arquivo, ROOT)}")
 
-    if pick is None:
-        write_indexes(slides, usados)
-        write_guide(deck)
+    write_indexes(slides, usados)
+    write_guide(deck)
 
 
 if __name__ == "__main__":

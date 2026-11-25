@@ -6,7 +6,7 @@ docs/
 .claude/
 # roteiro do ministrante
 GUIA_DO_APRESENTADOR.md
-deck/Minicurso_Kotlin_notas.pdf
+deck/*_notas.pdf
 deck/*.deckcraft
 deck/*.pptx
 deck/build/

@@ -35,6 +35,30 @@ python3 deck/tools/validate.py              # valida snippets, desafios e gabari
 python3 -I deck/tools/build.py --preview    # deck, PDFs, imagens do README, guia e índices
 ```
 
+## Versões e edição (humano, agente e script)
+
+Cada versão do curso tem um arquivo próprio, e assim o AutoRecover do app nunca confunde as duas:
+
+| Versão | Arquivo | Onde |
+|---|---|---|
+| v1 (8 h, arquivada) | `Minicurso_Kotlin_v1.deckcraft` | `archive/v1-8h/deck/` (local) |
+| v2 (4 h, atual) | `Minicurso_Kotlin_v2.deckcraft` | `deck/` (local, editável) |
+
+O `_v2` pode ser editado **no app DeckCraft**, **por um agente** (servidor MCP `deckcraft`) e **pelo build**, sem que um apague o trabalho do outro:
+
+```bash
+python3 -I deck/tools/build.py               # completo: recusa se o deck tiver edições do app/agente
+python3 -I deck/tools/build.py --slides 6,12 # troca só esses slides (números do content.py),
+                                             # no lugar deles, preservando todo o resto
+python3 -I deck/tools/build.py --exportar    # PDFs e .pptx gerados a partir do deck editado
+python3 -I deck/tools/build.py --forcar      # regenera tudo do zero (descarta edições)
+```
+
+- O build guarda o `id` de cada slide e o hash do deck em `deck/build/manifesto_v2.json`. Se o arquivo mudou fora do build, o deck fica marcado com **edições externas**. A marca só sai com `--forcar`.
+- O build **não roda com o app DeckCraft aberto**, porque o AutoRecover pode regravar uma cópia antiga. Feche o app (⌘Q) antes de rodar.
+- Abra o deck por **File ▸ Open (⌘O)**, pelo histórico do app ou com `deck/abrir_no_deckcraft.command`. O app 0.18.1 ignora o duplo clique no Finder.
+- Os PDFs públicos (`Minicurso_Kotlin*.pdf`) mantêm o nome sem versão, para não quebrar os links do README.
+
 ## Tema (resumo)
 
 | Elemento | Regra |
